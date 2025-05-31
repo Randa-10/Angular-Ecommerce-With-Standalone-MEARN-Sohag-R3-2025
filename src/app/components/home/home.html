@@ -1,0 +1,29 @@
+<!-- data binding -->
+ <!-- one way binding -->
+  <!-- 1-interpolation    {{ }} -->
+
+  <img src="{{storeProperty.storeLogo}}" />
+  <h1> {{storeProperty.storeName}} </h1>
+
+  <ul>
+    <!-- <li>{{storeProperty.storeBranch[0]}}</li>
+    <li>{{storeProperty.storeBranch[1]}}</li> -->
+<!-- for of loop -->
+<!-- 1-*ngFor     2-@for -->
+ <!-- *ngFor="let items of arrayname " -->
+
+<!-- <li *ngFor="let items of storeProperty.storeBranch  " >
+
+    {{items}}
+
+</li> -->
+
+<!-- @for(items of arrayName ; track  items){ v17
+    html content
+} -->
+
+@for(items of storeProperty.storeBranch ; track items){
+    <li>{{items}}</li>
+}
+
+  </ul>

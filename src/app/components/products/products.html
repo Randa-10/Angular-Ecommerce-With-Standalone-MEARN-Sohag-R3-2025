@@ -1,0 +1,74 @@
+<!-- data binding -->
+
+<!-- <div class="card" style="width: 18rem"> -->
+<!-- interpolation -->
+<!-- <img src="{{productList.productImgUrl}}" class="card-img-top" alt="..."> -->
+<!-- property binding [ att] -->
+<!-- <img [src]="productList.productImgUrl" class="card-img-top" alt="..." />
+
+  <div class="card-body">
+    <h5 class="card-title">{{productList.productName}}</h5>
+    <p class="card-text">price:{{productList.productPrice}}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div> -->
+
+<!-- on way binding  html===> ts
+ (event)="method()"-->
+<!-- <button class="btn btn-dark my-4" (click)="toggle()"> hide/show  images</button> -->
+<button class="btn btn-dark my-4" (click)="toggle()">
+  {{toggleImg ?"hide":"show"}} /images
+</button>
+
+<div class="row">
+  @for(product of productList ; track product.productId){
+
+  <div class="col-md-3 mt-4 col-sm-4">
+    <div class="card">
+      @if(toggleImg){
+      <img
+        class="card-img-top img-fluid"
+        [src]="product.productImgUrl"
+        alt="Card image cap"
+      />
+      }@else {
+      <p>no image</p>
+      }
+
+      <div class="card-body">
+        <h5 class="card-title">{{product.productName}}</h5>
+        <h5 class="card-title">quantity : {{product.productQuantity}}</h5>
+        <h5 class="card-title">price : {{product.productPrice}}</h5>
+
+        <!-- <button class="btn btn-primary" [hidden]="product.productQuantity==0" > <i class="fa-solid fa-cart-shopping"></i>Add to cart</button> -->
+        <!-- @if(product.productQuantity>0){
+        <button class="btn btn-primary">
+          <i class="fa-solid fa-cart-shopping"></i>Add to cart
+        </button>
+
+        }@else {
+            <p>no products</p>
+        } -->
+        <div class="d-flex justify-content-between">
+          <button
+            class="btn btn-primary"
+            [disabled]="product.productQuantity==0"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>Add to cart
+          </button>
+
+          @switch(product.productQuantity){ @case (0){
+          <p class="text-danger">out of stock</p>
+
+          } @case(1){
+          <p class="text-warning">last item in stock</p>
+          } @default {
+          <p class="text-success">in stock</p>
+          } }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  }
+</div>
