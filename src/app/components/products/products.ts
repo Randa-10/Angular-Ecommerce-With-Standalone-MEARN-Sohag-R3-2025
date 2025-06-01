@@ -1,30 +1,36 @@
 import { Component } from '@angular/core';
 import { Iproducts } from '../../Models/iproducts';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ImgStyle } from '../../directives/img-style';
 
 @Component({
   selector: 'app-products',
-  imports: [],
+  imports: [FormsModule,CommonModule,ImgStyle],
   templateUrl: './products.html',
-  styleUrl: './products.css'
+  styleUrl: './products.css',
 })
 export class Products {
+  productList: Iproducts[];
+  toggleImg: boolean = true;
+  clientName: string = 'ahmed';
+  TotalOrderPrice: number = 0;
+  userName: string = 'Ali';
+  // FilterByName:string=''/
+  constructor() {
+    // initialize data
+    // this.productList={
+    //   productId:1,
+    //   productName:'er 25 W Super Fast Charger Anker Ace',
+    //   productImgUrl:"https://f.nooncdn.com/p/pnsku/N70004190V/45/_/1697035033/e100f912-2fac-4cb8-bfc2-31922ecd8804.jpg?width=800"
+    // ,
+    // productPrice:100,
+    // productQuantity:1000,
+    // categoryId:1
+    // }
 
-  productList:Iproducts[]
-  toggleImg:boolean=true
-  clientName:string="ahmed"
-constructor(){
-  // initialize data
-// this.productList={
-//   productId:1,
-//   productName:'er 25 W Super Fast Charger Anker Ace',
-//   productImgUrl:"https://f.nooncdn.com/p/pnsku/N70004190V/45/_/1697035033/e100f912-2fac-4cb8-bfc2-31922ecd8804.jpg?width=800"
-// ,
-// productPrice:100,
-// productQuantity:1000,
-// categoryId:1
-// }
-
-this.productList=[{
+    this.productList = [
+      {
         productId: 1,
         productName: 'Apple iPhone 15',
         productImgUrl:
@@ -91,7 +97,7 @@ this.productList=[{
           'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem  lorem lorem lorem lorem lorem lorem  ',
       },
       {
-        productId:7,
+        productId: 7,
         productName: 'iphone',
         productImgUrl:
           'https://f.nooncdn.com/p/pnsku/N70085224V/45/_/1721894952/91270228-e30b-484e-ae2a-3e746b194bb2.jpg?format=avif&wproductIdth=240',
@@ -113,7 +119,7 @@ this.productList=[{
           'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem  lorem lorem lorem lorem lorem lorem  ',
       },
       {
-        productId:9,
+        productId: 9,
         productName: 'iphone',
         productImgUrl:
           'https://f.nooncdn.com/p/v1640152217/N52217824A_1.jpg?format=avif&wproductIdth=240',
@@ -122,11 +128,36 @@ this.productList=[{
         categoryId: 1,
         productDetails:
           'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem  lorem lorem lorem lorem lorem lorem  ',
-      },]
-}
+      },
+    ];
+    this.productsAfterSearch = this.productList;
+  }
 
+  toggle() {
+    this.toggleImg = !this.toggleImg;
+  }
 
-toggle(){
-this.toggleImg=!this.toggleImg
-}
+  // day3
+  totalPrice(qty: string, price: number) {
+    this.TotalOrderPrice += +qty * price;
+  }
+
+  //set , get
+
+  productsAfterSearch: Iproducts[] = [];
+  set FilterByName(setValue: string) {
+    //as func
+
+    // console.log(setValue);
+
+    // console.log( this.doSearch(setValue));
+    this.productsAfterSearch = this.doSearch(setValue);
+  }
+
+  doSearch(value: string): Iproducts[] {
+    value = value.toLowerCase();
+    return this.productList.filter((prd: Iproducts) =>
+      prd.productName.toLowerCase().includes(value)
+    );
+  }
 }

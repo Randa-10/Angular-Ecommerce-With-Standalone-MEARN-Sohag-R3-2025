@@ -18,11 +18,19 @@
 <!-- <button class="btn btn-dark my-4" (click)="toggle()"> hide/show  images</button> -->
 <button class="btn btn-dark my-4" (click)="toggle()">
   {{toggleImg ?"hide":"show"}} /images
-  
 </button>
+<h1>TotalOrderPrice :{{TotalOrderPrice}}</h1>
+<!-- prop binding -->
+<!-- <input type="text" [value]="userName"  /> -->
+<!-- two way binding  [()]  -->
+<!-- <input type="text" [(ngModel)]="userName" /> -->
 
+<!-- <p>{{userName}}</p> -->
+
+<label class="form-label">Filter By Name</label>
+<input type="text" class="form-control" [(ngModel)]="FilterByName" />
 <div class="row">
-  @for(product of productList ; track product.productId){
+  @for(product of productsAfterSearch ; track product.productId){
 
   <div class="col-md-3 mt-4 col-sm-4">
     <div class="card">
@@ -31,13 +39,33 @@
         class="card-img-top img-fluid"
         [src]="product.productImgUrl"
         alt="Card image cap"
+      appImgStyle
+      color1="blue"
       />
       }@else {
       <p>no image</p>
       }
 
       <div class="card-body">
-        <h5 class="card-title">{{product.productName}}</h5>
+        <!-- attribute prop binding  [class.classNama] -->
+        <!-- <h5 class="card-title" [class.test]="product.productQuantity==0"
+        [class.text-success]="product.productQuantity>0" >{{product.productName}}</h5> -->
+
+        <!-- attribute directives [ngClass]="{''}" -->
+        <!-- <h5 class="card-title" [ngClass]="{'test':product.productQuantity==0,'text-success':product.productQuantity>0}" >{{product.productName}}</h5> -->
+
+        <!-- prop binding ternary op -->
+        <!-- <h5 class="card-title" [style.background-color]="(product.productQuantity==0)?'red':'blue'" [style.color]="" >{{product.productName}}</h5> -->
+
+        <!-- attribute directives [ngStyle]="{''}" -->
+
+        <h5
+          class="card-title"
+          [ngStyle]="{'background-color':product.productQuantity==0?'red':'blue','color':product.productQuantity==0?'teal':'tomato'}"
+        >
+          {{product.productName}}
+        </h5>
+
         <h5 class="card-title">quantity : {{product.productQuantity}}</h5>
         <h5 class="card-title">price : {{product.productPrice}}</h5>
 
@@ -67,9 +95,22 @@
           <p class="text-success">in stock</p>
           } }
         </div>
+        <div class="d-flex justify-content-between mt-3">
+          <!-- template variables , reference  #name-->
+          <!-- Event Binding -->
+          <input type="number" #qtyValue />
+          <button
+            class="btn btn-success"
+            (click)="totalPrice(qtyValue.value,product.productPrice)"
+          >
+            buy
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
+  }@empty {
+  <h1 class="text-center">no products</h1>
   }
 </div>
