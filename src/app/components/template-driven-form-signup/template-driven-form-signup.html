@@ -1,0 +1,96 @@
+<!-- <button (click)="addUser()">add new user</button> -->
+
+<!-- 1-template  -->
+<div class="container mt-5">
+  <!-- <p>{{fname.value|json}}</p> -->
+  <p>touched:{{fname.touched}}</p>
+  <p>dirty:{{fname.dirty}}</p>
+  <p>valid:{{fname.valid}}</p>
+
+  <div class="form-container">
+    <h3 class="form-header">Sign Up Form</h3>
+
+    <form (ngSubmit)="addUser()" #signup="ngForm">
+      <!-- Name Input -->
+      <div class="mb-3">
+        <label for="name" class="form-label">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Enter your last name"
+          required
+          minlength="3"
+          [(ngModel)]="userProp.fname"
+          name="fname"
+          #fname="ngModel"
+          [ngClass]="{'is-invalid':(fname.touched||fname.dirty)&&fname.invalid,
+        'is-valid':fname.valid
+       }"
+        />
+
+        <div class="invalid-feedback">
+          @if(fname.errors?.['required']){
+          <p>fname is required</p>
+          }@else if(fname.errors?.['minlength']) {
+          <p>minlength at least 3</p>
+          }
+        </div>
+      </div>
+
+      <!-- Email Input -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="Enter your email"
+          required
+          [(ngModel)]="userProp.email"
+          name="email"
+          #email="ngModel"
+          [ngClass]="{'is-valid':email.valid,'is-invalid':(email.touched||email.dirty)&&email.invalid}"
+        />
+        <div class="invalid-feedback">
+          @if(email.errors?.['required']){
+
+          <p>email is required</p>
+
+          }
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Enter your password"
+          required
+          [(ngModel)]="userProp.password"
+          name="password"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn btn-custom w-100"
+        [disabled]="signup.invalid"
+      >
+        Submit
+      </button>
+    </form>
+
+    <!-- Footer -->
+    <div class="form-footer">
+      <p>
+        Already have an account?
+        <a href="#" class="text-decoration-none">Login</a>
+      </p>
+    </div>
+  </div>
+</div>

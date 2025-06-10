@@ -13,4 +13,6 @@ justify-content:center
 }
 a.active{
   color:red !important
+  ;
+  font-size: 18px;
 }

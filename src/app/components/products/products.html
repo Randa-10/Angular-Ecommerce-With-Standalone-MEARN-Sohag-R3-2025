@@ -27,10 +27,11 @@
 
 <!-- <p>{{userName}}</p> -->
 
-<label class="form-label">Filter By Name</label>
-<input type="text" class="form-control" [(ngModel)]="FilterByName" />
-<div class="row">
-  @for(product of productsAfterSearch ; track product.productId){
+<!-- <label class="form-label">Filter By Name </label>
+<input type="text" class="form-control" [(ngModel)]="FilterByName" /> -->
+<!-- <p >{{date|date:'long'}}</p> -->
+<div class="row"   >
+  @for(product of productsAfterSearch ; track product.id){
 
   <div class="col-md-3 mt-4 col-sm-4">
     <div class="card">
@@ -43,7 +44,7 @@
       color1="blue"
       />
       }@else {
-      <p>no image</p>
+      <p   >no image</p>
       }
 
       <div class="card-body">
@@ -61,13 +62,20 @@
 
         <h5
           class="card-title"
-          [ngStyle]="{'background-color':product.productQuantity==0?'red':'blue','color':product.productQuantity==0?'teal':'tomato'}"
+         
         >
-          {{product.productName}}
+          <!-- {{product.productName | lowercase}} -->
+          {{product.productName | uppercase}}
+
         </h5>
 
         <h5 class="card-title">quantity : {{product.productQuantity}}</h5>
-        <h5 class="card-title">price : {{product.productPrice}}</h5>
+        <div class="d-flex justify-content-between">
+                  <h5 class="card-title text-decoration-line-through "> {{product.productPrice| currency:'EUR':'code'}}</h5>
+
+        <h5 class="card-title"> {{product.productPrice|discount:20 | currency:'EUR':'code'}}</h5>
+
+        </div>
 
         <!-- <button class="btn btn-primary" [hidden]="product.productQuantity==0" > <i class="fa-solid fa-cart-shopping"></i>Add to cart</button> -->
         <!-- @if(product.productQuantity>0){
@@ -82,6 +90,7 @@
           <button
             class="btn btn-primary"
             [disabled]="product.productQuantity==0"
+            (click)="addToCartInChild(product)"
           >
             <i class="fa-solid fa-cart-shopping"></i>Add to cart
           </button>
@@ -106,6 +115,8 @@
             buy
           </button>
         </div>
+
+        <button class="btn btn-dark" [routerLink]="['/products_parent',product.id]">show details</button>
       </div>
     </div>
   </div>

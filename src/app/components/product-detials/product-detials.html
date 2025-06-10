@@ -1,0 +1,36 @@
+<div class="container">
+  <!-- safe navigation  -->
+  <div class="row">
+    <div class="col-md-4">
+      <img class="img-fluid" [src]="product?.productImgUrl" />
+    </div>
+    <div class="col-md-8 mt-5">
+      <h1 class="mt-5">{{product?.productName}}</h1>
+      <p>{{product?.productDetails}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <button
+    class="btn btn-light"
+    (click)="prevFunc()"
+    [disabled]="currentId==allIds[0]"
+  >
+    <i class="fa-solid fa-angles-left text-primary id"></i>
+  </button>
+
+  <button
+    class="btn btn-light"
+    (click)="nextFunc()"
+    [disabled]="currentId==allIds[allIds.length-1]"
+  >
+    <i class="fa-solid fa-angles-right"></i>
+  </button>
+</div>
+<!-- 
+<a class="btn btn-danger mt-5"  
+routerLink="/"  
+>
+  Back
+</a> -->

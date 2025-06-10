@@ -1,0 +1,37 @@
+<h1>parent comp</h1>
+<label class="form-label">Filter By Name </label>
+<input type="text" class="form-control" [(ngModel)]="FilterByNameINParent" />
+
+<!-- parent to child     $event   fire emit { } -->
+<app-products [FilterByNameInChild]="FilterByNameINParent" (prdProperty)="addToCartInParent($event)"></app-products>
+
+
+<table class="table table-dark table-striped">
+  
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>price</th>
+            <th>qty</th>
+
+
+            
+        </tr>
+    </thead>
+    <tbody>
+        @for(items of productsInParent; track items.id){
+            <tr>
+           <td>
+{{items.productName}}
+           </td> 
+                     <td>
+{{items.productPrice}}
+           </td> 
+                     <td>
+{{items.productQuantity}}
+           </td> 
+        </tr>    
+        }
+    
+    </tbody>
+</table>

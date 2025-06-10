@@ -2,10 +2,15 @@
  <!-- one way binding -->
   <!-- 1-interpolation    {{ }} -->
 
-  <img src="{{storeProperty.storeLogo}}" />
+<button (click)="login()" class="btn btn-primary" [disabled]="isUserLoggedProp">login</button>
+<button (click)="logout()" class="btn btn-danger" [disabled]="!isUserLoggedProp">logout</button>
+
+<br>
+
+  <!-- <img src="{{storeProperty.storeLogo}}" />
   <h1> {{storeProperty.storeName}} </h1>
 
-  <ul>
+  <ul> -->
     <!-- <li>{{storeProperty.storeBranch[0]}}</li>
     <li>{{storeProperty.storeBranch[1]}}</li> -->
 <!-- for of loop -->
@@ -22,8 +27,12 @@
     html content
 } -->
 
-@for(items of storeProperty.storeBranch ; track items){
+<!-- @for(items of storeProperty.storeBranch ; track items){
     <li>{{items}}</li>
 }
 
-  </ul>
+  </ul> -->
+
+
+
+  <app-products></app-products>
